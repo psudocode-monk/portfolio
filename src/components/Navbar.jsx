@@ -44,7 +44,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-xl border-b border-emerald-500/20 text-white py-4 px-4 md:px-8 flex justify-between items-center"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#000000] border-b border-emerald-500/20 text-white py-4 px-4 md:px-8 flex justify-between items-center shadow-[0_0_20px_rgba(16,185,129,0.15)]"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -116,46 +116,34 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              className="fixed inset-0 bg-black/50 md:hidden z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Sidebar Menu */}
-            <motion.ul
-              className="fixed top-0 right-0 w-64 h-full bg-black/80 backdrop-blur-xl border-l border-emerald-500/20 p-8 flex flex-col space-y-6 text-lg z-50 md:hidden"
-              variants={menuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              {navItems.map((item) => (
-                <motion.li
-                  key={item.name}
-                  variants={itemVariants}
-                  onClick={() => setIsOpen(false)}
+          <motion.ul
+            className="fixed top-0 right-0 w-64 h-full bg-[#050505] border-l border-emerald-500/20 p-8 flex flex-col space-y-6 text-lg z-50 md:hidden shadow-[0_0_25px_rgba(16,185,129,0.4)]"
+            variants={menuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            {navItems.map((item) => (
+              <motion.li
+                key={item.name}
+                variants={itemVariants}
+                onClick={() => setIsOpen(false)}
+              >
+                <Link
+                  to={item.to}
+                  className="hover:text-emerald-400 transition-colors duration-200 block py-2 relative group"
                 >
-                  <Link
-                    to={item.to}
-                    className="hover:text-emerald-400 transition-colors duration-200 block py-2 relative group"
-                  >
-                    {item.name}
-                    <motion.div
-                      className="absolute inset-0 rounded-md bg-emerald-500/20 -z-10"
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileHover={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  </Link>
-                </motion.li>
-              ))}
-            </motion.ul>
-          </>
+                  {item.name}
+                  <motion.div
+                    className="absolute inset-0 rounded-md bg-emerald-500/20 -z-10"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </Link>
+              </motion.li>
+            ))}
+          </motion.ul>
         )}
       </AnimatePresence>
     </motion.nav>
